@@ -22,16 +22,12 @@ public class Client extends Thread{
             System.out.println("You have connected. Port: " + PORT);
             input = new ObjectInputStream(socket.getInputStream());
             output = new ObjectOutputStream(socket.getOutputStream());
-            System.out.println("Enter a number:");
-            while(true) {
-                Integer integer = scanner.nextInt();
-                Message messageToSend = new Message(integer, -1);
-                output.writeObject(messageToSend);
-                output.flush();
+            new Thread(new Resender(output, scanner)).start();
+            while(true){
                 Object messageToGet = input.readObject();
                 System.out.println(messageToGet.toString());
             }
-           
+
         } catch (Exception x) {
             x.printStackTrace();
         }

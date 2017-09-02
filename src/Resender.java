@@ -3,22 +3,37 @@ import java.net.*;
 import java.util.*;
 
 public class Resender extends Thread{
-   /* private Scanner scanner;
-    private String s;
+    private Scanner scanner;
     private ObjectOutputStream output;
     private Socket socket;
-    Resender(String s, ObjectOutputStream output, Scanner scanner){
+    Resender(ObjectOutputStream output, Scanner scanner){
         this.scanner = scanner;
         this.socket = socket;
         this.output = output;
-        this.s = s;
     }
     Resender(){}
     @Override
     public void run(){
-        while(true){
-            String toSend = scanner.nextLine();
-            out.println("User " + this.s + " sent: " + toSend);
+        try {
+            while (true) {
+                String s;
+                Integer i;
+                s = scanner.nextLine();
+                String[] arrayString = s.split(" ");
+                i = Integer.valueOf(arrayString[arrayString.length-1]);
+                String b = "";
+                s = "";
+                for(String c : arrayString){
+                    b = c;
+                    s += c + " ";
+                }
+                s = s.substring(0, s.length() - b.length()-1);
+                Message messageToSend = new Message(s, i);
+                output.writeObject(messageToSend);
+                output.flush();
+            }
+        }catch(IOException e){
+            e.printStackTrace();
         }
-    }*/
+    }
 }
