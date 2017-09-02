@@ -25,11 +25,15 @@ public class Client extends Thread{
             System.out.println("Enter a number:");
             Integer integer = scanner.nextInt();
             Message messageToSend = new Message(integer, -1);
-            output.writeObject(messageToSend);
-            output.close();
-            output.flush();
-            Message messageToGet = (Message)input.readObject();
-            System.out.println(messageToGet.toString());
+            while(true) {
+               // output.writeObject("Savelyev is fool");
+                output.writeObject(messageToSend);
+                output.flush();
+                //while(true){}
+             //   Message messageToGet = (Message)input.readObject();
+                Integer integerToGet = (Integer)input.readObject();
+                System.out.println(integerToGet/*messageToGet.toString()*//*(String) input.readObject()*/);
+            }
            /* System.out.println("Please, enter your name: ");
             String s = scanner.nextLine();
             out.println("NAME" + s);
