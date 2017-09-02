@@ -23,29 +23,15 @@ public class Client extends Thread{
             input = new ObjectInputStream(socket.getInputStream());
             output = new ObjectOutputStream(socket.getOutputStream());
             System.out.println("Enter a number:");
-            Integer integer = scanner.nextInt();
-            Message messageToSend = new Message(integer, -1);
             while(true) {
-               // output.writeObject("Savelyev is fool");
+                Integer integer = scanner.nextInt();
+                Message messageToSend = new Message(integer, -1);
                 output.writeObject(messageToSend);
                 output.flush();
-                //while(true){}
-             //   Message messageToGet = (Message)input.readObject();
-                Integer integerToGet = (Integer)input.readObject();
-                System.out.println(integerToGet/*messageToGet.toString()*//*(String) input.readObject()*/);
+                Object messageToGet = input.readObject();
+                System.out.println(messageToGet.toString());
             }
-           /* System.out.println("Please, enter your name: ");
-            String s = scanner.nextLine();
-            out.println("NAME" + s);
-            String initName = in.readLine();
-            System.out.println(initName);
-            out = new PrintWriter(socket.getOutputStream(), true);
-            Resender resender = new Resender(s, out, scanner);
-            resender.start();
-            while (true) {
-                String line = in.readLine();
-                System.out.println(line);
-            }*/
+           
         } catch (Exception x) {
             x.printStackTrace();
         }
